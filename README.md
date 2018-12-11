@@ -1,6 +1,6 @@
-# Quoter
+# Microframe
 
-[![Build Status](https://travis-ci.com/daniel-werner/microframe.svg?branch=master)](https://travis-ci.com/daniel-werner/microframw)
+[![Build Status](https://travis-ci.com/daniel-werner/microframe.svg?branch=master)](https://travis-ci.com/daniel-werner/microframe)
 
 ## Introduction 
 Minimalistic framework for php.
