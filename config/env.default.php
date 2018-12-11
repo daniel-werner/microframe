@@ -1,5 +1,7 @@
 <?php
 
+define('APP_DIR', __DIR__.'/../');
+
 define('DB_HOST', '');
 define('DB_PORT', '');
 define('DB_DATABASE', '');

@@ -17,7 +17,7 @@ class View implements ViewInterface
             extract($this->data);
         }
 
-        $filePath = __DIR__ . '/../views/' . $this->template . '.php';
+        $filePath = APP_DIR . 'views/' . $this->template . '.php';
 
         if( file_exists($filePath) ){
             include_once $filePath;
