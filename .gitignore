@@ -2,4 +2,5 @@
 .idea
 /vendor
 /config/env.php
+/config/routes.php
 deploy.php

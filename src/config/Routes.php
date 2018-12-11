@@ -5,11 +5,15 @@ namespace Microframe\Config;
 
 class Routes
 {
-    public static $get = [
-        '/test/new' => 'TestController@add',
-    ];
+    public static function get($route, $action){
+        self::$get[$route] = $action;
+    }
 
-    public static $post = [
-        '/test/new' => 'TestController@store',
-    ];
+    public static function post($route, $action){
+        self::$post[$route] = $action;
+    }
+
+    public static $get = [];
+
+    public static $post = [];
 }
