@@ -1,7 +1,7 @@
 <?php
-require __DIR__ . '/bootstrap.php';
+require __DIR__ . '/../bootstrap.php';
 
-use Core\Dispatcher;
+use Microframe\Core\Dispatcher;
 
 ob_start();
 $view = Dispatcher::dispatch();
