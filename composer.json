@@ -1,4 +1,17 @@
 {
+  "name": "wdev/microframe",
+  "description": "The Microframe Framework.",
+  "keywords": ["microframe", "framework"],
+  "license": "MIT",
+  "homepage": "https://github.com/daniel-werner/microframe",
+  "support": {
+  },
+  "authors": [
+    {
+      "name": "Daniel Werner",
+      "email": "vernerd@gmail.com"
+    }
+  ],
     "require-dev": {
         "phpunit/phpunit": "^7.3",
         "deployer/deployer": "^6.2"
