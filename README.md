@@ -1,9 +1,9 @@
 # Quoter
 
-[![Build Status](https://travis-ci.com/daniel-werner/quoter.svg?branch=master)](https://travis-ci.com/daniel-werner/quoter)
+[![Build Status](https://travis-ci.com/daniel-werner/microframe.svg?branch=master)](https://travis-ci.com/daniel-werner/microframw)
 
 ## Introduction 
-Demo application for getting quotes for various products.
+Minimalistic framework for php.
 
 ## Installation
 1. Make a copy the `config/env.default.php` as `config/env.php`, and set up the database parameters
