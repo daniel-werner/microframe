@@ -1,0 +1,19 @@
+language: php
+
+php:
+  - 7.2
+
+before_script:
+  - cp config/env.travis.php config/env.php
+  - mysql -e 'create database quoter;'
+  - mysql -u root --default-character-set=utf8 quoter < db/quoter.sql
+  - composer self-update
+  - composer install --no-interaction
+services:
+  - mysql
+
+script:
+  - vendor/bin/phpunit
+
+notifications:
+  email: false
