@@ -1,8 +1,8 @@
 <?php
 
-namespace Models;
+namespace Microframe\Models;
 
-use Config\Database;
+use Microframe\Config\Database;
 use PHPUnit\Runner\Exception;
 
 abstract class Model

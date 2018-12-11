@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use Core\Dispatcher;
-use Core\View;
+use Microframe\Core\Dispatcher;
+use Microframe\Core\View;
 
 class DispatcherTest extends TestCase
 {

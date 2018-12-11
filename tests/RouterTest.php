@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use Core\Router;
+use Microframe\Core\Router;
 
 class RouterTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Microframe\Core;
 
 interface ViewInterface
 {

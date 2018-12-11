@@ -18,10 +18,9 @@
     },
   "autoload": {
     "psr-4": {
-      "Core\\": "src/core/",
-      "Config\\": "src/config/",
-      "Models\\": "src/models/",
-      "Controllers\\": "src/controllers/"
+      "Microframe\\": "src/",
+      "Controllers\\": "controllers/",
+      "Models\\": "models/"
     }
   }
 }

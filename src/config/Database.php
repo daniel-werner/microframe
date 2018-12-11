@@ -1,6 +1,6 @@
 <?php
 
-namespace Config;
+namespace Microframe\Config;
 
 
 class Database

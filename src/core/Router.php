@@ -1,7 +1,7 @@
 <?php
 
-namespace Core;
-use Config\Routes;
+namespace Microframe\Core;
+use Microframe\Config\Routes;
 
 class Router
 {

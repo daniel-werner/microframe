@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers;
+namespace Microframe\Controllers;
 
 abstract class Controller
 {

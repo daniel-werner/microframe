@@ -1,7 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
 use Models\Test;
-use Models\Quote;
 
 class ModelTest extends TestCase
 {
