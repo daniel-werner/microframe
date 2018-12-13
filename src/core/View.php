@@ -4,11 +4,11 @@ namespace Microframe\Core;
 
 class View implements ViewInterface
 {
-    protected $template = '';
+    protected $templates = [];
     protected $data = '';
 
-    public function __construct($template, $data = null){
-        $this->template = $template;
+    public function __construct($templates, $data = null){
+        $this->templates = $templates;
         $this->data = $data;
     }
 
@@ -17,11 +17,16 @@ class View implements ViewInterface
             extract($this->data);
         }
 
-        $filePath = APP_DIR . 'views/' . $this->template . '.php';
+        ob_start();
+
+        $template = array_shift( $this->templates);
+
+        $filePath = APP_DIR . 'views/' . $template . '.php';
 
         if( file_exists($filePath) ){
             include_once $filePath;
         }
 
+        ob_end_flush();
     }
 }
