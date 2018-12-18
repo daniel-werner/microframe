@@ -17,6 +17,9 @@
         "deployer/deployer": "^6.2"
     },
   "autoload": {
+    "files": [
+      "src/helpers/routing.php"
+      ],
     "psr-4": {
       "Microframe\\": "src/",
       "Controllers\\": "controllers/",
