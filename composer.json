@@ -18,7 +18,7 @@
     },
   "autoload": {
     "files": [
-      "src/helpers/routing.php"
+      "src/Helpers/routing.php"
       ],
     "psr-4": {
       "Microframe\\": "src/",
