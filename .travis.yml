@@ -4,7 +4,7 @@ php:
   - 7.2
 
 before_script:
-  - cp config/env.travis.php config/env.php
+  - cp config/env.travis.php config/env.testing.php
   - mysql -e 'create database test;'
   - mysql -u root --default-character-set=utf8 test < db/test.sql
   - composer self-update
