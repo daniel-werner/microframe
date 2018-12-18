@@ -9,6 +9,7 @@ before_script:
   - mysql -u root --default-character-set=utf8 test < db/test.sql
   - composer self-update
   - composer install --no-interaction
+  - composer dump-autoload
 services:
   - mysql
 
