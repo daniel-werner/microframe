@@ -6,7 +6,7 @@ php:
 before_script:
   - cp config/env.travis.php config/env.php
   - mysql -e 'create database test;'
-  - mysql -u root --default-character-set=utf8 quoter < db/test.sql
+  - mysql -u root --default-character-set=utf8 test < db/test.sql
   - composer self-update
   - composer install --no-interaction
 services:
