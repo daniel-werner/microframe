@@ -57,7 +57,6 @@ multiple databases (PosgreSQL, MySQL, Oracle, etc...)
 Error handling could be improved in general.
 
 
-
 ## Requirements
 1. PHP7
 2. Mysql
