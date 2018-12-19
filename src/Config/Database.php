@@ -2,7 +2,6 @@
 
 namespace Microframe\Config;
 
-
 class Database
 {
     public static $host = DB_HOST;

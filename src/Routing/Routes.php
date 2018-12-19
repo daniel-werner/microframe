@@ -2,7 +2,6 @@
 
 namespace Microframe\Routing;
 
-
 class Routes
 {
     protected static $routes = [];
@@ -20,18 +19,15 @@ class Routes
 
     public static function getRoute($method, $uri)
     {
-        if(empty(static::$matchedRoutes[$method][$uri])){
+        if (empty(static::$matchedRoutes[$method][$uri])) {
             foreach (static::$routes as $route) {
                 if ($route->match($method, $uri)) {
                     static::$matchedRoutes[$method][$uri] = $route;
                     break;
                 }
             }
-
         }
 
         return static::$matchedRoutes[$method][$uri] ?? null;
     }
-
-
 }
