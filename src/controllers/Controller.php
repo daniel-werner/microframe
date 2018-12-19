@@ -15,7 +15,7 @@ abstract class Controller
 
     public function notFound()
     {
-        header("HTTP/1.0 404 Not Found");
+        header('HTTP/1.0 404 Not Found');
         echo 'Page not found!';
         exit;
     }
@@ -24,7 +24,7 @@ abstract class Controller
     {
         $view = new View([
             $this->layout,
-            $template
+            $template,
         ],
             $data);
 

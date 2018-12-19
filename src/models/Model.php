@@ -12,20 +12,20 @@ abstract class Model
     protected $table = '';
     private $db = '';
 
-
-    public function __construct( $data = [] )
+    public function __construct($data = [])
     {
         $this->connect();
 
-        foreach( $data as $field => $value ){
-            if(in_array($field, $this->fields)){
+        foreach ($data as $field => $value) {
+            if (in_array($field, $this->fields)) {
                 $this->attributes[$field] = $value;
             }
         }
     }
 
-    public function connect(){
-        $this->db = new \mysqli( Database::$host, Database::$username, Database::$password, Database::$database );
+    public function connect()
+    {
+        $this->db = new \mysqli(Database::$host, Database::$username, Database::$password, Database::$database);
 
         /* check connection */
         if (mysqli_connect_errno()) {
@@ -34,58 +34,61 @@ abstract class Model
         }
     }
 
-    public function buildSelectStatement($conditions){
+    public function buildSelectStatement($conditions)
+    {
         $fields = implode('`,`', $this->fields);
 
         $select = sprintf('SELECT `%s` FROM %s',
             $fields,
-            $this->table );
+            $this->table);
 
         $where = '';
         $index = 0;
-        foreach($conditions as $key => $value ){
-            if($index > 0 ){
+        foreach ($conditions as $key => $value) {
+            if ($index > 0) {
                 $where .= ' AND ';
             }
-            $where .= sprintf( '`%s` = %s',
+            $where .= sprintf('`%s` = %s',
                 $this->db->real_escape_string($key),
-                $this->db->real_escape_string($value) );
+                $this->db->real_escape_string($value));
 
             $index++;
         }
 
-        if(!empty($conditions)){
-            $select .= sprintf( ' WHERE %s', $where );
+        if (!empty($conditions)) {
+            $select .= sprintf(' WHERE %s', $where);
         }
 
         return $select;
-
     }
 
-    public function buildInsertStatement(){
+    public function buildInsertStatement()
+    {
         $fields = [];
         $values = [];
 
-        foreach($this->attributes as $field => $value){
+        foreach ($this->attributes as $field => $value) {
             $fields[] = $this->db->real_escape_string($field);
             $values[] = $this->db->real_escape_string($value);
         }
 
         $fields = implode('`,`', $fields);
         $values = implode("','", $values);
-        $insert = sprintf( "INSERT INTO %s (`%s`) VALUES ('%s')", $this->table, $fields, $values);
+        $insert = sprintf("INSERT INTO %s (`%s`) VALUES ('%s')", $this->table, $fields, $values);
+
         return $insert;
     }
 
-    public function get($conditions){
+    public function get($conditions)
+    {
         $result = $this->db->query($this->buildSelectStatement($conditions));
 
         $results = [];
 
-        if ($result ) {
-            while($obj = $result->fetch_object()){
+        if ($result) {
+            while ($obj = $result->fetch_object()) {
                 $item = [];
-                foreach($this->fields as $field){
+                foreach ($this->fields as $field) {
                     $item[$field] = $obj->{$field};
                 }
 
@@ -99,29 +102,30 @@ abstract class Model
         return $results;
     }
 
-    public function save(){
+    public function save()
+    {
         $result = $this->db->query($this->buildInsertStatement());
-        if($result){
+        if ($result) {
             $this->attributes['id'] = $this->db->insert_id;
-        }
-        else{
+        } else {
             $errors = [];
-            foreach($this->db->error_list as $error){
+            foreach ($this->db->error_list as $error) {
                 $errors[] = $error['error'];
             }
-            printf("Save failed: %s\n", implode(', ',$errors));
+            printf("Save failed: %s\n", implode(', ', $errors));
             exit();
         }
+
         return $this;
     }
 
-    public function __get($name){
+    public function __get($name)
+    {
         $attribute = '';
 
-        if( in_array($name, $this->fields) ){
+        if (in_array($name, $this->fields)) {
             $attribute = $this->attributes[$name] ?? null;
-        }
-        else{
+        } else {
             throw new Exception('Attribute does not exists');
         }
 
