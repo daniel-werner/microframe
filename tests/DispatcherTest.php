@@ -1,8 +1,9 @@
 <?php
-use PHPUnit\Framework\TestCase;
+
 use Microframe\Core\Dispatcher;
 use Microframe\Core\View;
 use Microframe\Routing\Routes;
+use PHPUnit\Framework\TestCase;
 
 class DispatcherTest extends TestCase
 {
@@ -22,8 +23,7 @@ class DispatcherTest extends TestCase
 
         $view = Dispatcher::dispatch();
 
-        $this->assertInstanceOf( View::class, $view );
-
+        $this->assertInstanceOf(View::class, $view);
     }
 
     public function testDispatchWithParams()
@@ -33,7 +33,6 @@ class DispatcherTest extends TestCase
 
         $view = Dispatcher::dispatch();
 
-        $this->assertInstanceOf( View::class, $view );
-
+        $this->assertInstanceOf(View::class, $view);
     }
 }

@@ -7,11 +7,13 @@ use Microframe\Core\View;
 
 class TestController extends Controller
 {
-    public function add($params){
+    public function add($params)
+    {
         return new View('test/add', ['data' => 'test']);
     }
 
-    public function store($params){
+    public function store($params)
+    {
         return new View('test/add', ['data' => 'test']);
     }
 }

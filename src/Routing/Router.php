@@ -7,7 +7,6 @@ class Router
     /**
      * @return array
      */
-
     protected static function getUri()
     {
         $requestUri = $_SERVER['REQUEST_URI'];
@@ -21,15 +20,15 @@ class Router
         return $_SERVER['REQUEST_METHOD'];
     }
 
-    public static function getParams(){
-
+    public static function getParams()
+    {
         $method = static::getMethod();
         $uri = static::getUri();
 
         $route = Routes::getRoute($method, $uri);
 
-        if( empty($route ) ){
-            header("HTTP/1.0 404 Not Found");
+        if (empty($route)) {
+            header('HTTP/1.0 404 Not Found');
             exit;
         }
 
@@ -38,7 +37,8 @@ class Router
         return $params;
     }
 
-    public static function isActive($uri){
+    public static function isActive($uri)
+    {
         $requestUri = static::getUri();
 
         return $requestUri === $uri;

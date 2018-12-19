@@ -23,13 +23,14 @@ class Route implements RouteInterface
         return ($this->method === $method) && preg_match($this->routeRegex, $uri);
     }
 
-    protected function getRouteParams(){
+    protected function getRouteParams()
+    {
         $routeParams = [];
 
         $routeParts = explode('/', $this->route);
 
-        foreach ($routeParts as $index => $routePart){
-            if(preg_match('/^{.+}$/', $routePart)){
+        foreach ($routeParts as $index => $routePart) {
+            if (preg_match('/^{.+}$/', $routePart)) {
                 $routeParams[$index] = $routePart;
             }
         }
@@ -37,26 +38,28 @@ class Route implements RouteInterface
         return $routeParams;
     }
 
-    protected function buildRouteRegex(){
+    protected function buildRouteRegex()
+    {
         $routeRegexParts = explode('/', $this->route);
         $routeParams = $this->getRouteParams();
 
-        foreach ($routeParams as $index => $routeParam){
+        foreach ($routeParams as $index => $routeParam) {
             $routeRegexParts[$index] = '[A-Za-z0-9_-]+';
         }
 
-        $routeRegex = '/^' . implode( '\/', $routeRegexParts ) . '$/';
+        $routeRegex = '/^'.implode('\/', $routeRegexParts).'$/';
 
         $this->routeRegex = $routeRegex;
     }
 
-    protected function getUriParams($uri){
+    protected function getUriParams($uri)
+    {
         $uriParts = explode('/', $uri);
         $routeParams = $this->getRouteParams();
         $uriParams = [];
 
-        foreach ($routeParams as $index => $routeParam){
-            if(isset($uriParts[$index])){
+        foreach ($routeParams as $index => $routeParam) {
+            if (isset($uriParts[$index])) {
                 $key = ltrim($routeParam, '{');
                 $key = rtrim($key, '}');
                 $uriParams[$key] = $uriParts[$index];
