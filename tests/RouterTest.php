@@ -55,7 +55,7 @@ class RouterTest extends TestCase
         Routes::get($routePath, 'TestController@add')->name('test-active-url');
 
         $isActive = Router::isActive('test-active-url', [
-            'id' => 1
+            'id' => 1,
         ]);
 
         $this->assertTrue($isActive);

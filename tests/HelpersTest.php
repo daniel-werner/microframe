@@ -1,8 +1,7 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-use Microframe\Routing\Router;
 use Microframe\Routing\Routes;
+use PHPUnit\Framework\TestCase;
 
 class HelpersTest extends TestCase
 {
@@ -21,7 +20,7 @@ class HelpersTest extends TestCase
         Routes::get($routePath, 'TestController@add')->name('test-active-url');
 
         $isActive = isActive('test-active-url', [
-            'id' => 1
+            'id' => 1,
         ]);
 
         $this->assertTrue($isActive);
@@ -39,7 +38,6 @@ class HelpersTest extends TestCase
 
         $this->expectException(Exception::class);
         route('non-existing-route');
-
     }
 
     public function testRouteWithParams()
@@ -57,15 +55,14 @@ class HelpersTest extends TestCase
 
         Routes::get($routePath, 'TestController@add')->name('test-url-2params');
         $generatedUrl = route('test-url-2params', [
-            'id' => 1,
-            'slug' => 'text'
+            'id'   => 1,
+            'slug' => 'text',
         ]);
 
         $this->assertEquals($expectedUrl, $generatedUrl);
 
         $this->expectException(Exception::class);
         route('non-existing-route');
-
     }
 
     public function testUrl()
