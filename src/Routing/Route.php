@@ -44,7 +44,7 @@ class Route implements RouteInterface
             $routeRegexParts[$index] = '[A-Za-z0-9_-]+';
         }
 
-        $routeRegex = '/^' . implode('\/', $routeRegexParts) . '$/';
+        $routeRegex = '/^'.implode('\/', $routeRegexParts).'$/';
 
         $this->routeRegex = $routeRegex;
     }

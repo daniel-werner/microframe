@@ -37,7 +37,7 @@ class Routes
         }
 
         if ($returnRoute === null) {
-            throw new \Exception('Route not found: ' . $name);
+            throw new \Exception('Route not found: '.$name);
         }
 
         return $returnRoute;

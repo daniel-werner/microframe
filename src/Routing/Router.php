@@ -57,7 +57,7 @@ class Router
         $proto = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
         $host = $_SERVER['HTTP_HOST'];
 
-        $url = $proto . $host . $uri;
+        $url = $proto.$host.$uri;
 
         return $url;
     }
