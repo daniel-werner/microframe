@@ -37,10 +37,28 @@ class Router
         return $params;
     }
 
-    public static function isActive($uri)
+    public static function isActive($name, $params = null)
     {
         $requestUri = static::getUri();
+        $route = Routes::getRouteByName($name);
 
-        return $requestUri === $uri;
+        return $requestUri === $route->url($params);
+    }
+
+    public static function routeUrl($name, $params = null)
+    {
+        $route = Routes::getRouteByName($name);
+
+        return static::url($route->url($params));
+    }
+
+    public static function url($uri)
+    {
+        $proto = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+        $host = $_SERVER['HTTP_HOST'];
+
+        $url = $proto . $host . $uri;
+
+        return $url;
     }
 }
