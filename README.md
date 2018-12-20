@@ -1,7 +1,7 @@
 # Microframe
 
-[![Build Status](https://travis-ci.com/daniel-werner/microframe.svg?branch=develop)](https://travis-ci.com/daniel-werner/microframe)
-[![StyleCI](https://github.styleci.io/repos/161361417/shield?branch=develop)](https://github.styleci.io/repos/161361417)
+[![Build Status](https://travis-ci.com/daniel-werner/microframe.svg?branch=master)](https://travis-ci.com/daniel-werner/microframe)
+[![StyleCI](https://github.styleci.io/repos/161361417/shield?branch=master)](https://github.styleci.io/repos/161361417)
 ## Introduction 
 Minimalistic framework for php.
 
