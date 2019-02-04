@@ -5,7 +5,7 @@
 ## Introduction 
 Minimalistic framework for php.
 
-You might think: why would someone build a new framework as there are plenty of good, opensource frameworks out there. And yes you are right, but I've read somewhere (cannot remember where), that every developer should write their own framework not necassairy to use it or release it, but to learn from it. And the article was right it is a interesting challenge and a useful experience.
+You might think: why would someone build a new framework as there are plenty of good, opensource frameworks out there. And yes you are right, but I've read somewhere (cannot remember where), that every developer should write their own framework: not necessarily to use it or release it, but to learn from it. And the article was right, it is a interesting challenge and a useful experience.
 
 ## Installation
 1. Make a copy the `config/env.default.php` as `config/env.php`, and set up the database parameters
