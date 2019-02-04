@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.com/daniel-werner/microframe.svg?branch=master)](https://travis-ci.com/daniel-werner/microframe)
 [![StyleCI](https://github.styleci.io/repos/161361417/shield?branch=master)](https://github.styleci.io/repos/161361417)
 ## Introduction 
-Minimalistic framework for php. 
+Minimalistic framework for php.
+
 You might think: why would someone build a new framework as there are plenty of good, opensource frameworks out there. And yes you are right, but I've read somewhere (cannot remember where), that every developer should write their own framework not necassairy to use it or release it, but to learn from it. And the article was right it is a interesting challenge and a useful experience.
 
 ## Installation
