@@ -22,11 +22,13 @@ abstract class Controller
 
     public function render($template, $data = null)
     {
-        $view = new View([
+        $view = new View(
+            [
             $this->layout,
             $template,
-        ],
-            $data);
+            ],
+            $data
+        );
 
         return $view->render();
     }

@@ -38,9 +38,11 @@ abstract class Model
     {
         $fields = implode('`,`', $this->fields);
 
-        $select = sprintf('SELECT `%s` FROM %s',
+        $select = sprintf(
+            'SELECT `%s` FROM %s',
             $fields,
-            $this->table);
+            $this->table
+        );
 
         $where = '';
         $index = 0;
@@ -48,9 +50,11 @@ abstract class Model
             if ($index > 0) {
                 $where .= ' AND ';
             }
-            $where .= sprintf('`%s` = %s',
+            $where .= sprintf(
+                '`%s` = %s',
                 $this->db->real_escape_string($key),
-                $this->db->real_escape_string($value));
+                $this->db->real_escape_string($value)
+            );
 
             $index++;
         }
