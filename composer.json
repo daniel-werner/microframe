@@ -1,7 +1,10 @@
 {
   "name": "wdev/microframe",
   "description": "The Microframe Framework.",
-  "keywords": ["microframe", "framework"],
+  "keywords": [
+    "microframe",
+    "framework"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/daniel-werner/microframe",
   "support": {
@@ -13,17 +16,32 @@
     }
   ],
   "require-dev": {
-      "phpunit/phpunit": "^7.3",
-      "deployer/deployer": "^6.2"
+    "phpunit/phpunit": "^7.3",
+    "deployer/deployer": "^6.2",
+    "squizlabs/php_codesniffer": "^3.5",
+    "phpstan/phpstan": "^0.11.16",
+    "phpmd/phpmd": "^2.7",
+    "friendsofphp/php-cs-fixer": "^2.15"
   },
   "autoload": {
     "files": [
       "src/Helpers/routing.php"
-      ],
+    ],
     "psr-4": {
       "Microframe\\": "src/",
       "Controllers\\": "controllers/",
       "Models\\": "models/"
     }
+  },
+  "scripts": {
+    "inspect": [
+      "vendor/bin/phpcs",
+      "vendor/bin/phpstan analyze src"
+    ],
+    "inspect-fix": [
+      "vendor/bin/php-cs-fixer fix src",
+      "vendor/bin/phpcbf"
+    ],
+    "insights": "vendor/bin/phpmd src text phpmd.xml"
   }
 }
