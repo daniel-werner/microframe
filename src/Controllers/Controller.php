@@ -46,7 +46,7 @@ abstract class Controller
                 return ['layout/'.$template[0], $template[1]];
             }
 
-            return [$this->layout, $template[1]];
+            return [$this->layout, $template[0]];
         }
 
         return [$this->layout, $template];
