@@ -1,7 +1,6 @@
 <?php
 
 use Microframe\Core\Dispatcher;
-use Microframe\Core\View;
 use Microframe\Routing\Routes;
 use PHPUnit\Framework\TestCase;
 
@@ -28,7 +27,7 @@ class DispatcherTest extends TestCase
     }
 
     //Nether POST nether params not work, need later fix
-    
+
     // public function testDispatchPost()
     // {
     //     $_SERVER['REQUEST_URI'] = '/test/new';
