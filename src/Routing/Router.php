@@ -18,6 +18,7 @@ class Router
     protected static function getPath()
     {
         $requestUri = parse_url($_SERVER['REQUEST_URI']);
+
         return $requestUri['path'];
     }
 
