@@ -11,18 +11,18 @@ class RouteTest extends TestCase
     public function testMatch()
     {
         $uri = '/test/action/1';
-        $route = new Route('GET', '/test/action/{id}', 'TestController@add');
+        $route = new Route('GET', '/test/action/{id}', 'WelcomeController@welcome');
         $this->assertTrue($route->match('GET', $uri));
 
         $uri = '/test/action/1/1';
         $this->assertFalse($route->match('GET', $uri));
 
         $uri = '/test/action/1/1';
-        $route = new Route('GET', '/test/action/{id}/{other}', 'TestController@add');
+        $route = new Route('GET', '/test/action/{id}/{other}', 'WelcomeController@welcome');
         $this->assertTrue($route->match('GET', $uri));
 
         $uri = '/test/action/1/other';
-        $route = new Route('GET', '/test/action/{id}/other', 'TestController@add');
+        $route = new Route('GET', '/test/action/{id}/other', 'WelcomeController@welcome');
         $this->assertTrue($route->match('GET', $uri));
     }
 }

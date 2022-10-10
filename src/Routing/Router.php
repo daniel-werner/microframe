@@ -15,6 +15,12 @@ class Router
         return $uriParts[0];
     }
 
+    protected static function getPath()
+    {
+        $requestUri = parse_url($_SERVER['REQUEST_URI']);
+        return $requestUri['path'];
+    }
+
     protected static function getMethod()
     {
         return $_SERVER['REQUEST_METHOD'];
@@ -39,7 +45,7 @@ class Router
 
     public static function isActive($name, $params = null)
     {
-        $requestUri = static::getUri();
+        $requestUri = static::getPath();
         $route = Routes::getRouteByName($name);
 
         return $requestUri === $route->url($params);

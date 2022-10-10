@@ -17,7 +17,7 @@ class HelpersTest extends TestCase
         $_SERVER['REQUEST_URI'] = '/test/param/1';
 
         $routePath = '/test/param/{id}';
-        Routes::get($routePath, 'TestController@add')->name('test-active-url');
+        Routes::get($routePath, 'WelcomeController@welcome')->name('test-active-url');
 
         $isActive = isActive('test-active-url', [
             'id' => 1,
@@ -31,7 +31,7 @@ class HelpersTest extends TestCase
         $routePath = '/test/url';
         $expectedUrl = 'http://microframe.test/test/url';
 
-        Routes::get($routePath, 'TestController@add')->name('test-url');
+        Routes::get($routePath, 'WelcomeController@welcome')->name('test-url');
         $generatedUrl = route('test-url');
 
         $this->assertEquals($expectedUrl, $generatedUrl);
@@ -44,7 +44,7 @@ class HelpersTest extends TestCase
     {
         $routePath = '/test/url/{id}';
 
-        Routes::get($routePath, 'TestController@add')->name('test-url-param');
+        Routes::get($routePath, 'WelcomeController@welcome')->name('test-url-param');
         $generatedUrl = route('test-url-param', ['id' => 1]);
 
         $expectedUrl = 'http://microframe.test/test/url/1';
@@ -53,7 +53,7 @@ class HelpersTest extends TestCase
         $routePath = '/test/url/{id}/{slug}';
         $expectedUrl = 'http://microframe.test/test/url/1/text';
 
-        Routes::get($routePath, 'TestController@add')->name('test-url-2params');
+        Routes::get($routePath, 'WelcomeController@welcome')->name('test-url-2params');
         $generatedUrl = route('test-url-2params', [
             'id'   => 1,
             'slug' => 'text',

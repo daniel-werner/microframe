@@ -10,9 +10,9 @@ class DispatcherTest extends TestCase
     {
         parent::setUp();
 
-        Routes::get('/test/new', 'TestController@add');
-        Routes::post('/test/new', 'TestController@store');
-        Routes::get('/test/param/{id}', 'TestController@add');
+        Routes::get('/test/new', 'WelcomeController@welcome');
+        Routes::post('/test/new', 'WelcomeController@contact');
+        Routes::get('/test/param/{id}', 'WelcomeController@welcome');
     }
 
     public function testDispatch()
@@ -28,14 +28,14 @@ class DispatcherTest extends TestCase
 
     //Nether POST nether params not work, need later fix
 
-    // public function testDispatchPost()
-    // {
-    //     $_SERVER['REQUEST_URI'] = '/test/new';
-    //     $_SERVER['REQUEST_METHOD'] = 'POST';
+    public function testDispatchPost()
+    {
+        $_SERVER['REQUEST_URI'] = '/test/new';
+        $_SERVER['REQUEST_METHOD'] = 'POST';
 
-    //     Dispatcher::dispatch();
-    //     $view = $this->getActualOutput();
+        Dispatcher::dispatch();
+        $view = $this->getActualOutput();
 
-    //     $this->assertStringStartsWith('<!doctype html>', $view);
-    // }
+        $this->assertStringStartsWith('<!doctype html>', $view);
+    }
 }
