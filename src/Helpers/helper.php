@@ -79,17 +79,13 @@ function hasLengthExactly($value, $exact)
 function hasLength($value, $options)
 {
     if (isset($options['min']) && !hasLengthGreaterThan($value, $options['min'] - 1)) {
-
-      return false;
+        return false;
     } elseif (isset($options['max']) && !hasLengthLessThan($value, $options['max'] + 1)) {
-
-      return false;
+        return false;
     } elseif (isset($options['exact']) && !hasLengthExactly($value, $options['exact'])) {
-
-      return false;
+        return false;
     } else {
-
-      return true;
+     return true;
     }
 }
 

@@ -2,13 +2,14 @@
 
 namespace Microframe\Core;
 
-class Session {
+class Session
+{
 
     private $user_id;
     private $username;
     private $last_login;
 
-    public const MAX_LOGIN_AGE = 60*60*24; // 1 day
+    public const MAX_LOGIN_AGE = 60 * 60 * 24; // 1 day
 
     public function __construct()
     {
@@ -59,14 +60,12 @@ class Session {
     private function lastLoginIsRecent()
     {
         if (!isset($this->last_login)) {
-
             return false;
         } elseif (($this->last_login + self::MAX_LOGIN_AGE) < time()) {
             $this->logout();
 
             return false;
         } else {
-
             return true;
         }
     }
