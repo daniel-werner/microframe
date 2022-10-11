@@ -4,7 +4,6 @@ namespace Microframe\Core;
 
 class Session
 {
-
     private $user_id;
     private $username;
     private $last_login;

@@ -4,7 +4,6 @@ namespace Microframe\Utils;
 
 class ParseCsv
 {
-
     private $delimiter = ',';
     private $filename;
     private $header;
@@ -54,7 +53,7 @@ class ParseCsv
         $file = fopen($this->filename, 'r');
         while (!feof($file)) {
             $row = fgetcsv($file, 0, self::$delimiter);
-            if ($row == [NULL] || $row === FALSE) { 
+            if ($row == [null] || $row === false) { 
                 continue; 
             }
             if (!$this->header) {
@@ -86,5 +85,4 @@ class ParseCsv
         $this->data = [];
         $this->row_count = 0;
     }
-
 }

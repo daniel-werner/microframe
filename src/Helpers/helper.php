@@ -85,7 +85,7 @@ function hasLength($value, $options)
     } elseif (isset($options['exact']) && !hasLengthExactly($value, $options['exact'])) {
         return false;
     } else {
-     return true;
+        return true;
     }
 }
 
