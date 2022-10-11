@@ -1,0 +1,21 @@
+<?php
+$c = $argc;
+$command = '';
+$operation = '';
+$name = '';
+
+if ( $c < 3) {
+    echo 'Not enogh parameter';
+    exit();
+}
+
+$commandArray = explode(':', $argv[1]);
+if ( count($commandArray) > 1) {
+    $command = $commandArray[0];
+    $operation = $commandArray[1];
+} else {
+    echo 'Wrong command';
+    exit();
+}
+
+$name = $argv[2];
