@@ -54,7 +54,7 @@ class ParseCsv
         while (!feof($file)) {
             $row = fgetcsv($file, 0, self::$delimiter);
             if ($row == [null] || $row === false) {
-                continue; 
+                continue;
             }
             if (!$this->header) {
                 $this->header = $row;
