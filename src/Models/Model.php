@@ -11,6 +11,7 @@ abstract class Model
     protected $fields = [];
     protected $table = '';
     private $db = '';
+    public $errors = [];
 
     public function __construct($data = [])
     {
@@ -104,6 +105,10 @@ abstract class Model
 
     public function save()
     {
+        $this->validate();
+        if (!empty($this->errors)) {
+            return false;
+        }
         $result = $this->db->query($this->buildInsertStatement());
         if ($result) {
             $this->attributes['id'] = $this->db->insert_id;
@@ -130,5 +135,132 @@ abstract class Model
         }
 
         return $attribute;
+    }
+
+    public function findBySql($sql)
+    {
+        $result = $this->db->query($sql);
+
+        $results = [];
+
+        if ($result) {
+            while ($obj = $result->fetch_object()) {
+                $item = [];
+                foreach ($this->fields as $field) {
+                    $item[$field] = $obj->{$field};
+                }
+
+                $class = get_class($this);
+                $model = new \ReflectionClass($class);
+                $results[] = $model->newInstance($item);
+            }
+        }
+        $result->close();
+
+        return $results;
+    }
+
+    public function findAll()
+    {
+        $sql = "SELECT * FROM ".$this->table;
+        return $this->findBySql($sql);
+    }
+
+    public function countAll()
+    {
+        $sql = "SELECT COUNT(*) FROM ".$this->table;
+        $result_set = $this->db->query($sql);
+        $row = $result_set->fetch_array();
+
+        return array_shift($row);
+    }
+
+    public function findById($id)
+    {
+        $sql = "SELECT * FROM ".$this->table." ";
+        $sql .= "WHERE id='".$this->db->real_escape_string($id)."'";
+        $obj_array = $this->findBySql($sql);
+        if (!empty($obj_array)) {
+            return array_shift($obj_array);
+        } else {
+            return false;
+        }
+    }
+
+    public function firstBy($coulomb, $value)
+    {
+        $sql = "SELECT * FROM ".$this->table." ";
+        $sql .= "WHERE ".$coulomb."='".$this->db->real_escape_string($value)."'";
+        $obj_array = $this->findBySql($sql);
+        if (!empty($obj_array)) {
+            return array_shift($obj_array);
+        } else {
+            return false;
+        }
+    }
+
+    public function getBy($coulomb, $value)
+    {
+        $sql = "SELECT * FROM ".$this->table." ";
+        $sql .= "WHERE ".$coulomb."='".$this->db->real_escape_string($value)."'";
+
+        return $this->findBySql($sql);
+    }
+
+    protected function validate()
+    {
+        $this->errors = [];
+
+        // Add custom validations
+        return $this->errors;
+    }
+
+    protected function sanitizedAttributes()
+    {
+        $sanitized = [];
+        foreach ($this->attributes as $key => $value) {
+            $sanitized[$key] = $this->db->escape_string($value);
+        }
+
+        return $sanitized;
+    }
+
+    protected function update()
+    {
+        $this->validate();
+        if (!empty($this->errors)) {
+            return false;
+        }
+
+        $attributes = $this->sanitizedAttributes();
+        $attribute_pairs = [];
+        foreach($attributes as $key => $value) {
+          $attribute_pairs[] = "{$key}='{$value}'";
+        }
+    
+        $sql = "UPDATE ".$this->table." SET ";
+        $sql .= join(', ', $attribute_pairs);
+        $sql .= " WHERE id='".$this->db->escape_string($this->attributes['id'])."' ";
+        $sql .= "LIMIT 1";
+        $result = $this->db->query($sql);
+
+        return $result;
+    }
+
+    public function delete()
+    {
+        // After deleting, the instance of the object will still
+        // exist, even though the database record does not.
+        // This can be useful, as in:
+        //   echo $user->first_name . " was deleted.";
+        // but, for example, we can't call $user->update() after
+        // calling $user->delete().
+
+        $sql = "DELETE FROM ".$this->table." ";
+        $sql .= "WHERE id='".$this->db->escape_string($this->attributes['id'])."' ";
+        $sql .= "LIMIT 1";
+        $result = $this->db->query($sql);
+
+        return $result;
     }
 }
