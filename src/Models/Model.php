@@ -263,4 +263,39 @@ abstract class Model
 
         return $result;
     }
+
+    public function deleteBy($coulomb, $value)
+    {
+        $sql = "DELETE FROM ".$this->table." ";
+        $sql .= "WHERE ".$coulomb."='".$this->db->real_escape_string($value)."'";
+        $result = $this->db->query($sql);
+
+        return $result;
+    }
+
+    public function sqlRaw($sql)
+    {
+        $result = $this->db->query($sql);
+        if (is_numeric($result)) {
+            return $result;
+        }
+
+        $results = [];
+
+        if ($result) {
+            while ($obj = $result->fetch_object()) {
+                $item = [];
+                foreach ($this->fields as $field) {
+                    $item[$field] = $obj->{$field};
+                }
+
+                $class = get_class($this);
+                $model = new \ReflectionClass($class);
+                $results[] = $model->newInstance($item);
+            }
+        }
+        $result->close();
+
+        return $results;
+    }
 }
