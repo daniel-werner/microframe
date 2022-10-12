@@ -24,9 +24,8 @@ class View implements ViewInterface
         $template = array_shift($this->templates);
 
         $filePath = APP_DIR.'views/'.$template.'.php';
-
         if (file_exists($filePath)) {
-            include_once $filePath;
+            include $filePath;
         }
 
         ob_end_flush();

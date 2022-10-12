@@ -111,4 +111,9 @@ class Route implements RouteInterface
 
         return implode('/', $routePathParts);
     }
+
+    public function getPath()
+    {
+        return $this->routePath;
+    }
 }
