@@ -1,6 +1,6 @@
 <?php
 
-use Microframe\Config\Routes;
+use Microframe\Routing\Routes;
 
 Routes::get('/test/new', 'TestController@add');
 
