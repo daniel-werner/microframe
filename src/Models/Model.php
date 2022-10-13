@@ -39,9 +39,11 @@ abstract class Model
     {
         $fields = implode('`,`', $this->fields);
 
-        $select = sprintf('SELECT `%s` FROM %s',
+        $select = sprintf(
+            'SELECT `%s` FROM %s',
             $fields,
-            $this->table);
+            $this->table
+        );
 
         $where = '';
         $index = 0;
@@ -49,9 +51,11 @@ abstract class Model
             if ($index > 0) {
                 $where .= ' AND ';
             }
-            $where .= sprintf('`%s` = %s',
+            $where .= sprintf(
+                '`%s` = %s',
                 $this->db->real_escape_string($key),
-                $this->db->real_escape_string($value));
+                $this->db->real_escape_string($value)
+            );
 
             $index++;
         }
@@ -162,13 +166,14 @@ abstract class Model
 
     public function findAll()
     {
-        $sql = "SELECT * FROM ".$this->table;
+        $sql = 'SELECT * FROM '.$this->table;
+
         return $this->findBySql($sql);
     }
 
     public function countAll()
     {
-        $sql = "SELECT COUNT(*) FROM ".$this->table;
+        $sql = 'SELECT COUNT(*) FROM '.$this->table;
         $result_set = $this->db->query($sql);
         $row = $result_set->fetch_array();
 
@@ -177,7 +182,7 @@ abstract class Model
 
     public function findById($id)
     {
-        $sql = "SELECT * FROM ".$this->table." ";
+        $sql = 'SELECT * FROM '.$this->table.' ';
         $sql .= "WHERE id='".$this->db->real_escape_string($id)."'";
         $obj_array = $this->findBySql($sql);
         if (!empty($obj_array)) {
@@ -189,8 +194,8 @@ abstract class Model
 
     public function firstBy($coulomb, $value)
     {
-        $sql = "SELECT * FROM ".$this->table." ";
-        $sql .= "WHERE ".$coulomb."='".$this->db->real_escape_string($value)."'";
+        $sql = 'SELECT * FROM '.$this->table.' ';
+        $sql .= 'WHERE '.$coulomb."='".$this->db->real_escape_string($value)."'";
         $obj_array = $this->findBySql($sql);
         if (!empty($obj_array)) {
             return array_shift($obj_array);
@@ -201,8 +206,8 @@ abstract class Model
 
     public function getBy($coulomb, $value)
     {
-        $sql = "SELECT * FROM ".$this->table." ";
-        $sql .= "WHERE ".$coulomb."='".$this->db->real_escape_string($value)."'";
+        $sql = 'SELECT * FROM '.$this->table.' ';
+        $sql .= 'WHERE '.$coulomb."='".$this->db->real_escape_string($value)."'";
 
         return $this->findBySql($sql);
     }
@@ -234,14 +239,14 @@ abstract class Model
 
         $attributes = $this->sanitizedAttributes();
         $attribute_pairs = [];
-        foreach($attributes as $key => $value) {
-          $attribute_pairs[] = "{$key}='{$value}'";
+        foreach ($attributes as $key => $value) {
+            $attribute_pairs[] = "{$key}='{$value}'";
         }
-    
-        $sql = "UPDATE ".$this->table." SET ";
+
+        $sql = 'UPDATE '.$this->table.' SET ';
         $sql .= join(', ', $attribute_pairs);
         $sql .= " WHERE id='".$this->db->escape_string($this->attributes['id'])."' ";
-        $sql .= "LIMIT 1";
+        $sql .= 'LIMIT 1';
         $result = $this->db->query($sql);
 
         return $result;
@@ -256,9 +261,9 @@ abstract class Model
         // but, for example, we can't call $user->update() after
         // calling $user->delete().
 
-        $sql = "DELETE FROM ".$this->table." ";
+        $sql = 'DELETE FROM '.$this->table.' ';
         $sql .= "WHERE id='".$this->db->escape_string($this->attributes['id'])."' ";
-        $sql .= "LIMIT 1";
+        $sql .= 'LIMIT 1';
         $result = $this->db->query($sql);
 
         return $result;
@@ -266,8 +271,8 @@ abstract class Model
 
     public function deleteBy($coulomb, $value)
     {
-        $sql = "DELETE FROM ".$this->table." ";
-        $sql .= "WHERE ".$coulomb."='".$this->db->escape_string($value)."'";
+        $sql = 'DELETE FROM '.$this->table.' ';
+        $sql .= 'WHERE '.$coulomb."='".$this->db->escape_string($value)."'";
         $result = $this->db->query($sql);
 
         return $result;
@@ -282,8 +287,8 @@ abstract class Model
         if (!isset($this->attributes[$forenId])) {
             return [];
         }
-        $sql = "SELECT * FROM ".$table." ";
-        $sql .= "WHERE ".$this->db->escape_string($forenId)."='".$this->db->escape_string($this->attributes[$forenId])."'";
+        $sql = 'SELECT * FROM '.$table.' ';
+        $sql .= 'WHERE '.$this->db->escape_string($forenId)."='".$this->db->escape_string($this->attributes[$forenId])."'";
         $result_set = $this->db->query($sql);
         $row = $result_set->fetch_assoc();
         $result_set->free_result();
@@ -299,8 +304,8 @@ abstract class Model
         if (!$forenId) {
             $forenId = $table.'_id';
         }
-        $sql = "SELECT * FROM ".$table." ";
-        $sql .= "WHERE ".$this->db->escape_string($forenId)."='".$this->db->escape_string($this->attributes['id'])."'";
+        $sql = 'SELECT * FROM '.$table.' ';
+        $sql .= 'WHERE '.$this->db->escape_string($forenId)."='".$this->db->escape_string($this->attributes['id'])."'";
         $result_set = $this->db->query($sql);
         $row = $result_set->fetch_assoc();
         $result_set->free_result();
@@ -316,8 +321,8 @@ abstract class Model
         if (!$forenId) {
             $forenId = $table.'_id';
         }
-        $sql = "SELECT * FROM ".$table." ";
-        $sql .= "WHERE ".$this->db->escape_string($forenId)."='".$this->db->escape_string($this->attributes['id'])."'";
+        $sql = 'SELECT * FROM '.$table.' ';
+        $sql .= 'WHERE '.$this->db->escape_string($forenId)."='".$this->db->escape_string($this->attributes['id'])."'";
         $result_set = $this->db->query($sql);
         $row = $result_set->fetch_assoc();
         $result_set->free_result();
