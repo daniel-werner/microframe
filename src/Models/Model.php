@@ -137,7 +137,7 @@ abstract class Model
         return $attribute;
     }
 
-    public function findBySql($sql)
+    protected function findBySql($sql)
     {
         $result = $this->db->query($sql);
 
@@ -267,35 +267,61 @@ abstract class Model
     public function deleteBy($coulomb, $value)
     {
         $sql = "DELETE FROM ".$this->table." ";
-        $sql .= "WHERE ".$coulomb."='".$this->db->real_escape_string($value)."'";
+        $sql .= "WHERE ".$coulomb."='".$this->db->escape_string($value)."'";
         $result = $this->db->query($sql);
 
         return $result;
     }
 
-    public function sqlRaw($sql)
+    //Eloquent like functions
+    public function belongsTo($table, $forenId = '')
     {
-        $result = $this->db->query($sql);
-        if (is_numeric($result)) {
-            return $result;
+        if (!$forenId) {
+            $forenId = $table.'_id';
         }
-
-        $results = [];
-
-        if ($result) {
-            while ($obj = $result->fetch_object()) {
-                $item = [];
-                foreach ($this->fields as $field) {
-                    $item[$field] = $obj->{$field};
-                }
-
-                $class = get_class($this);
-                $model = new \ReflectionClass($class);
-                $results[] = $model->newInstance($item);
-            }
+        if (!isset($this->attributes[$forenId])) {
+            return [];
         }
-        $result->close();
+        $sql = "SELECT * FROM ".$table." ";
+        $sql .= "WHERE ".$this->db->escape_string($forenId)."='".$this->db->escape_string($this->attributes[$forenId])."'";
+        $result_set = $this->db->query($sql);
+        $row = $result_set->fetch_assoc();
+        $result_set->free_result();
+        if (!empty($row)) {
+            return array_shift($row);
+        } else {
+            return [];
+        }
+    }
 
-        return $results;
+    public function hasOne($table, $forenId = '')
+    {
+        if (!$forenId) {
+            $forenId = $table.'_id';
+        }
+        $sql = "SELECT * FROM ".$table." ";
+        $sql .= "WHERE ".$this->db->escape_string($forenId)."='".$this->db->escape_string($this->attributes['id'])."'";
+        $result_set = $this->db->query($sql);
+        $row = $result_set->fetch_assoc();
+        $result_set->free_result();
+        if (!empty($row)) {
+            return array_shift($row);
+        } else {
+            return [];
+        }
+    }
+
+    public function hasMany($table, $forenId = '')
+    {
+        if (!$forenId) {
+            $forenId = $table.'_id';
+        }
+        $sql = "SELECT * FROM ".$table." ";
+        $sql .= "WHERE ".$this->db->escape_string($forenId)."='".$this->db->escape_string($this->attributes['id'])."'";
+        $result_set = $this->db->query($sql);
+        $row = $result_set->fetch_assoc();
+        $result_set->free_result();
+
+        return $row;
     }
 }
