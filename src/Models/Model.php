@@ -174,8 +174,8 @@ abstract class Model
     public function countAll()
     {
         $sql = 'SELECT COUNT(*) FROM '.$this->table;
-        $result_set = $this->db->query($sql);
-        $row = $result_set->fetch_array();
+        $resultSet = $this->db->query($sql);
+        $row = $resultSet->fetch_array();
 
         return array_shift($row);
     }
@@ -184,30 +184,24 @@ abstract class Model
     {
         $sql = 'SELECT * FROM '.$this->table.' ';
         $sql .= "WHERE id='".$this->db->real_escape_string($id)."'";
-        $obj_array = $this->findBySql($sql);
-        if (!empty($obj_array)) {
-            return array_shift($obj_array);
-        } else {
-            return false;
-        }
+        $objArray = $this->findBySql($sql);
+
+        return $this->returnFirst($objArray);
     }
 
-    public function firstBy($coulomb, $value)
+    public function firstBy($column, $value)
     {
         $sql = 'SELECT * FROM '.$this->table.' ';
-        $sql .= 'WHERE '.$coulomb."='".$this->db->real_escape_string($value)."'";
-        $obj_array = $this->findBySql($sql);
-        if (!empty($obj_array)) {
-            return array_shift($obj_array);
-        } else {
-            return false;
-        }
+        $sql .= 'WHERE '.$column."='".$this->db->real_escape_string($value)."'";
+        $objArray = $this->findBySql($sql);
+
+        return $this->returnFirst($objArray);
     }
 
-    public function getBy($coulomb, $value)
+    public function getBy($column, $value)
     {
         $sql = 'SELECT * FROM '.$this->table.' ';
-        $sql .= 'WHERE '.$coulomb."='".$this->db->real_escape_string($value)."'";
+        $sql .= 'WHERE '.$column."='".$this->db->real_escape_string($value)."'";
 
         return $this->findBySql($sql);
     }
@@ -238,13 +232,13 @@ abstract class Model
         }
 
         $attributes = $this->sanitizedAttributes();
-        $attribute_pairs = [];
+        $attributePairs = [];
         foreach ($attributes as $key => $value) {
-            $attribute_pairs[] = "{$key}='{$value}'";
+            $attributePairs[] = "{$key}='{$value}'";
         }
 
         $sql = 'UPDATE '.$this->table.' SET ';
-        $sql .= join(', ', $attribute_pairs);
+        $sql .= join(', ', $attributePairs);
         $sql .= " WHERE id='".$this->db->escape_string($this->attributes['id'])."' ";
         $sql .= 'LIMIT 1';
         $result = $this->db->query($sql);
@@ -269,64 +263,68 @@ abstract class Model
         return $result;
     }
 
-    public function deleteBy($coulomb, $value)
+    public function deleteBy($column, $value)
     {
         $sql = 'DELETE FROM '.$this->table.' ';
-        $sql .= 'WHERE '.$coulomb."='".$this->db->escape_string($value)."'";
+        $sql .= 'WHERE '.$column."='".$this->db->escape_string($value)."'";
         $result = $this->db->query($sql);
 
         return $result;
     }
 
     //Eloquent like functions
-    public function belongsTo($table, $forenId = '')
+    public function belongsTo($table, $foreignId = '')
     {
-        if (!$forenId) {
-            $forenId = $table.'_id';
+        if (!$foreignId) {
+            $foreignId = $table.'_id';
         }
-        if (!isset($this->attributes[$forenId])) {
+        if (!isset($this->attributes[$foreignId])) {
             return [];
         }
         $sql = 'SELECT * FROM '.$table.' ';
-        $sql .= 'WHERE '.$this->db->escape_string($forenId)."='".$this->db->escape_string($this->attributes[$forenId])."'";
-        $result_set = $this->db->query($sql);
-        $row = $result_set->fetch_assoc();
-        $result_set->free_result();
-        if (!empty($row)) {
-            return array_shift($row);
-        } else {
-            return [];
-        }
+        $sql .= "WHERE id='".$this->db->escape_string($this->attributes[$foreignId])."'";
+        $resultSet = $this->db->query($sql);
+        $row = $resultSet->fetch_assoc();
+        $resultSet->free_result();
+
+        return $this->returnFirst($row);
     }
 
-    public function hasOne($table, $forenId = '')
+    public function hasOne($table, $foreignId = '')
     {
-        if (!$forenId) {
-            $forenId = $table.'_id';
+        if (!$foreignId) {
+            $foreignId = $table.'_id';
         }
         $sql = 'SELECT * FROM '.$table.' ';
-        $sql .= 'WHERE '.$this->db->escape_string($forenId)."='".$this->db->escape_string($this->attributes['id'])."'";
-        $result_set = $this->db->query($sql);
-        $row = $result_set->fetch_assoc();
-        $result_set->free_result();
-        if (!empty($row)) {
-            return array_shift($row);
-        } else {
-            return [];
-        }
+        $sql .= 'WHERE '.$this->db->escape_string($foreignId)."='".$this->db->escape_string($this->attributes['id'])."' ";
+        $sql .= 'LIMIT 1';
+        $resultSet = $this->db->query($sql);
+        $row = $resultSet->fetch_assoc();
+        $resultSet->free_result();
+
+        return $this->returnFirst($row);
     }
 
-    public function hasMany($table, $forenId = '')
+    public function hasMany($table, $foreignId = '')
     {
-        if (!$forenId) {
-            $forenId = $table.'_id';
+        if (!$foreignId) {
+            $foreignId = $table.'_id';
         }
         $sql = 'SELECT * FROM '.$table.' ';
-        $sql .= 'WHERE '.$this->db->escape_string($forenId)."='".$this->db->escape_string($this->attributes['id'])."'";
-        $result_set = $this->db->query($sql);
-        $row = $result_set->fetch_assoc();
-        $result_set->free_result();
+        $sql .= 'WHERE '.$this->db->escape_string($foreignId)."='".$this->db->escape_string($this->attributes['id'])."'";
+        $resultSet = $this->db->query($sql);
+        $row = $resultSet->fetch_assoc();
+        $resultSet->free_result();
 
         return $row;
+    }
+
+    protected function returnFirst($array)
+    {
+        if (!empty($array)) {
+            return array_shift($array);
+        } else {
+            return [];
+        }
     }
 }
